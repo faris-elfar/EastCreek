@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="#F7F5F0" name="theme-color"/><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/><title>Find Us &amp; Share the Vision | East Creek Living</title><style>
+  /* ─── Design tokens ──────────────────────────────────────────────
+     Layout: stacked full-width sections, centered content column
+     Color: warm sage earth palette — calm, natural, trustworthy
+     Type: Lora (display/headings) + Inter (body/UI)
+  ─────────────────────────────────────────────────────────────────── */
+  :root {
+    --bg:        #F7F5F0;
+    --bg-alt:    #EEE9DF;
+    --surface:   #FFFFFF;
+    --fg:        #1C1C1A;
+    --fg-muted:  #5C5A54;
+    --accent:    #3A6B50;
+    --accent-lt: #C8DDD0;
+    --accent-dk: #1E3D2C;
+    --gold:      #B8956A;
+    --border:    #D9D4C8;
+    --radius:    12px;
+    --max-w:     720px;
+
+    --font-display: 'Lora', Georgia, serif;
+    --font-body:    'Inter', system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #111410;
+      --bg-alt:    #1A1D18;
+      --surface:   #222620;
+      --fg:        #EDE9DF;
+      --fg-muted:  #9A9890;
+      --accent:    #6AAB84;
+      --accent-lt: #1E3328;
+      --accent-dk: #A0D4B6;
+      --gold:      #C9A87A;
+      --border:    #333630;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #111410;
+    --bg-alt:    #1A1D18;
+    --surface:   #222620;
+    --fg:        #EDE9DF;
+    --fg-muted:  #9A9890;
+    --accent:    #6AAB84;
+    --accent-lt: #1E3328;
+    --accent-dk: #A0D4B6;
+    --gold:      #C9A87A;
+    --border:    #333630;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    padding-left:  max(16px, env(safe-area-inset-left,  0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 0;
+  }
+
+  /* ─── Utilities ──────────────────────────────────────────────── */
+  .inner {
+    max-width: var(--max-w);
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .band {
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    padding-block: 72px 80px;
+  }
+  .band-alt { background: var(--bg-alt); }
+  .band-accent { background: var(--accent); }
+  .band-dark  { background: var(--accent-dk); }
+
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.2; }
+
+  /* ─── Nav ────────────────────────────────────────────────────── */
+  nav {
+    padding-inline: max(24px, env(safe-area-inset-left, 0px));
+    padding-block: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: var(--bg);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-dk);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent-dk); }
+
+  /* ─── Hero ───────────────────────────────────────────────────── */
+  .hero {
+    padding-block: 80px 72px;
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 32px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 20px;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--fg-muted);
+    max-width: 540px;
+    margin-inline: auto;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .badge {
+    background: var(--accent-lt);
+    color: var(--accent-dk);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-art {
+    max-width: 580px;
+    margin-inline: auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--accent-lt);
+    aspect-ratio: 16/7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* SVG landscape illustration */
+  .hero-art svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ─── Section: Vision ────────────────────────────────────────── */
+  .vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+  @media (max-width: 540px) { .vision-grid { grid-template-columns: 1fr; } }
+
+  .vision-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+  }
+  .vision-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--accent-lt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .vision-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .vision-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+  .vision-card p  { font-size: 0.9rem; color: var(--fg-muted); line-height: 1.65; }
+
+  /* ─── Section: Quote ─────────────────────────────────────────── */
+  .quote-band {
+    padding-block: 64px;
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    background: var(--accent-dk);
+    text-align: center;
+  }
+  .quote-band blockquote {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 3vw, 1.65rem);
+    font-style: italic;
+    color: #fff;
+    max-width: 620px;
+    margin-inline: auto;
+    line-height: 1.5;
+  }
+  .quote-band cite {
+    display: block;
+    margin-top: 20px;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ─── Section: Use cases ─────────────────────────────────────── */
+  .use-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  @media (max-width: 600px) { .use-grid { grid-template-columns: 1fr; } }
+
+  .use-card {
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .use-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--accent-lt);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .use-card h3 { font-size: 1rem; margin-bottom: 8px; }
+  .use-card p  { font-size: 0.875rem; color: var(--fg-muted); line-height: 1.65; }
+
+  /* ─── Section heading ────────────────────────────────────────── */
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--fg-muted);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* ─── Form section ───────────────────────────────────────────── */
+  .form-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    margin-top: 48px;
+  }
+  @media (max-width: 540px) { .form-wrap { padding: 28px 20px; } }
+
+  .form-wrap h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+  .form-wrap .form-sub {
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    margin-bottom: 28px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    letter-spacing: 0.02em;
+  }
+
+  input, select, textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--fg);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+    width: 100%;
+    min-width: 0;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 2px;
+  }
+  .radio-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .radio-opt input[type="radio"] {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--accent);
+  }
+  .radio-opt .opt-label { font-size: 0.875rem; line-height: 1.4; }
+  .radio-opt .opt-desc  { font-size: 0.8rem; color: var(--fg-muted); }
+
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    cursor: pointer;
+  }
+  .checkbox-row input { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--accent); }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .submit-btn:hover { background: var(--accent-dk); }
+  .submit-btn:focus { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* Success state */
+  .success-state {
+    text-align: center;
+    padding: 32px 0;
+  }
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent-lt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .success-icon svg { width: 30px; height: 30px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .success-state h3 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 10px; }
+  .success-state p  { font-size: 0.9rem; color: var(--fg-muted); }
+
+  /* ─── Two-path CTA band ────────────────────────────────────────── */
+  .paths-band {
+    padding-block: 72px 80px;
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    background: var(--bg);
+  }
+  .paths-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  @media (max-width: 580px) { .paths-grid { grid-template-columns: 1fr; } }
+
+  .path-card {
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .path-card.survey {
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .path-card.waitlist {
+    background: var(--accent-dk);
+    color: #fff;
+  }
+  .path-pill {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    width: fit-content;
+  }
+  .path-card.survey .path-pill  { background: var(--accent-lt); color: var(--accent-dk); }
+  .path-card.waitlist .path-pill { background: rgba(255,255,255,0.18); color: #fff; }
+  .path-card h3 { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.25; }
+  .path-card.waitlist h3 { color: #fff; }
+  .path-card p  { font-size: 0.875rem; line-height: 1.65; flex-grow: 1; }
+  .path-card.survey p   { color: var(--fg-muted); }
+  .path-card.waitlist p { color: rgba(255,255,255,0.78); }
+  .path-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 11px 22px;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s;
+  }
+  .path-btn:hover { opacity: 0.85; }
+  .path-card.survey  .path-btn { background: var(--accent); color: #fff; }
+  .path-card.waitlist .path-btn { background: #fff; color: var(--accent-dk); }
+
+  /* ─── Form tabs ─────────────────────────────────────────────────── */
+  .form-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 28px;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    color: var(--fg-muted);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn.active { color: var(--accent-dk); border-bottom-color: var(--accent); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* waitlist form accent */
+  .waitlist-note {
+    background: var(--accent-lt);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: var(--accent-dk);
+    margin-bottom: 24px;
+    line-height: 1.55;
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────────── */
+  footer {
+    padding-block: 40px;
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .footer-logo span { color: var(--gold); }
+  footer p {
+    font-size: 0.8rem;
+    color: var(--fg-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+/* Location, flyer and print */
+.nav-links{display:flex;gap:16px;align-items:center}.nav-links>a:not(.nav-cta){color:var(--fg);text-decoration:none;font-size:.85rem;font-weight:600}@media(max-width:500px){.nav-links{gap:9px}.nav-links>a{font-size:.75rem!important}.nav-cta{padding:8px 10px}.nav-logo{font-size:.95rem}}
+.location-card { margin-top:30px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden; }
+.location-address { display:flex;flex-direction:column;padding:20px 24px;gap:2px; }
+.location-address strong { font-family:var(--font-display);font-size:1.25rem; }
+.location-address span { color:var(--fg-muted); }
+.location-card iframe { display:block;width:100%;height:380px;border:0;background:#e3e8e1; }
+.location-actions,.flyer-actions { display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 24px; }
+.location-actions .path-btn,.flyer-actions .path-btn { background:var(--accent);color:#fff; }
+.map-link { color:var(--accent);font-weight:600;text-decoration:underline; }
+.flyer-actions { padding:24px 0; }
+.flyer-actions button { font-size:.9rem; }
+.flyer-actions .secondary { background:var(--accent-lt);color:var(--accent-dk); }
+.flyer-sheet { background:#fff;color:#1c3024;max-width:620px;margin:0 auto;border:1px solid #d6dfd7;padding:48px 46px;box-shadow:0 10px 30px #00000010;text-align:center; }
+.flyer-topline,.flyer-place-label { font-size:.7rem;letter-spacing:.17em;font-weight:700;color:#52765f; }
+.flyer-sheet h2 { font-family:var(--font-display);font-size:clamp(2rem,6vw,3rem);margin:20px 0 8px; }
+.flyer-sheet h2 em { color:#3a6b50; }
+.flyer-tagline { font-family:var(--font-display);font-size:1.25rem; }
+.flyer-divider { width:70px;height:2px;background:#b8956a;margin:26px auto; }
+.flyer-sheet p { font-size:1rem;line-height:1.75; }
+.flyer-features { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:30px 0; }
+.flyer-features span { background:#edf3ed;padding:12px 8px;border-radius:7px;font-size:.84rem; }
+.flyer-place { border:1px solid #cbd9cc;background:#f7faf7;padding:22px;margin:24px 0;display:flex;flex-direction:column;gap:4px; }
+.flyer-place strong { font-family:var(--font-display);font-size:1.4rem; }
+.flyer-mapnote { font-size:.8rem;margin-top:10px;color:#55725d; }
+.flyer-bottom { display:flex;flex-direction:column;gap:6px;margin:26px 0; }
+.flyer-bottom strong { font-size:1.35rem;color:#356548; }
+.flyer-bottom span { font-size:.88rem; }
+.flyer-disclaimer { font-size:.66rem;color:#66776b;line-height:1.5; }
+@media(max-width:540px){.flyer-sheet{padding:32px 20px}.flyer-features{grid-template-columns:1fr}.location-card iframe{height:310px}}
+@media print { @page { size:letter; margin:.35in; } body * { visibility:hidden!important; } #flyer-sheet,#flyer-sheet * {visibility:visible!important;} #flyer-sheet {position:absolute;left:0;top:0;width:100%;max-width:none;box-shadow:none;border:0;padding:35px 38px;} .flyer-features{grid-template-columns:1fr 1fr} }
+</style></head><body><nav><a class="nav-logo" href="index.html">East Creek <span>Living</span></a><div class="nav-links"><a href="index.html">Home</a><a href="location.html">Find Us</a><a href="location.html#flyer">Share the Vision</a><a class="nav-cta" href="index.html#interest">Express Interest</a></div></nav><!-- LOCATION: interactive embedded map -->
+<section class="band band-alt" id="location">
+<div class="inner">
+<div class="section-label">Find Us</div>
+<h2 class="section-title">A peaceful setting by East Creek</h2>
+<p class="section-sub">Explore the proposed location in Dennis Township, Cape May County, New Jersey.</p>
+<div class="location-card">
+<div class="location-address"><strong>2056 Route 47</strong><span>Woodbine, NJ 08270</span></div>
+<iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=2056%20Route%2047%2C%20Woodbine%2C%20NJ%2008270&amp;output=embed" title="Interactive map of 2056 Route 47, Woodbine, NJ"></iframe>
+<div class="location-actions"><a class="path-btn" href="https://www.google.com/maps/search/?api=1&amp;query=2056%20Route%2047%2C%20Woodbine%2C%20NJ%2008270" rel="noopener noreferrer" target="_blank">Open interactive map ↗</a><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=2056%20Route%2047%2C%20Woodbine%2C%20NJ%2008270" rel="noopener noreferrer" target="_blank">Get directions ↗</a></div>
+</div>
+</div>
+</section><section class="band" id="flyer">
+<div class="inner">
+<div class="section-label">Share the Vision</div>
+<h2 class="section-title">Help us spread the word</h2>
+<p class="section-sub">Print or share this one-page introduction with friends, family, and community members.</p>
+<div class="flyer-actions"><button class="path-btn" onclick="printFlyer()" type="button">Print / Save Flyer as PDF ↗</button><button class="path-btn secondary" onclick="navigator.clipboard?.writeText('https://eastcreekliving.com')" type="button">Copy Website Link</button></div>
+<article class="flyer-sheet" id="flyer-sheet">
+<div class="flyer-topline">CAPE MAY COUNTY · NEW JERSEY</div>
+<h2>East Creek <em>Living</em></h2>
+<div class="flyer-tagline">A quiet, affordable place to call home.</div>
+<div class="flyer-divider"></div>
+<p>We're exploring a welcoming, Muslim-friendly residential community built around dignity, connection, and peace of mind.</p>
+<div class="flyer-features"><span>Residential living</span><span>Halal meals envisioned</span><span>Weekly wellness visits proposed</span><span>Community &amp; belonging</span></div>
+<div class="flyer-place"><div class="flyer-place-label">EXPLORE THE LOCATION</div><strong>2056 Route 47</strong><span>Woodbine, NJ 08270</span><div class="flyer-mapnote">View the interactive map and directions at our website.</div></div>
+<div class="flyer-bottom"><strong>eastcreekliving.com</strong><span>Take our community survey or join the interest list.</span></div>
+<div class="flyer-disclaimer">An early-stage concept. Features, services, and availability are subject to change. This is not an offer of housing or medical care.</div>
+</article>
+</div>
+</section>
+<footer><div class="footer-logo">East Creek <span>Living</span></div><p>2056 Route 47 · Woodbine, NJ 08270</p><p><a href="https://eastcreekliving.com">eastcreekliving.com</a></p></footer><script>function printFlyer(){window.print()}</script></body></html>

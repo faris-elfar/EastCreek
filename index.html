@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="East Creek Living — exploring affordable, welcoming community housing in Cape May County, New Jersey." name="description"/>
+<link href="https://eastcreekliving.com/" rel="canonical"/>
+<title>East Creek Living</title>
+<meta content="cover" name="claude:viewport-fit-sides"/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+  /* ─── Design tokens ──────────────────────────────────────────────
+     Layout: stacked full-width sections, centered content column
+     Color: warm sage earth palette — calm, natural, trustworthy
+     Type: Lora (display/headings) + Inter (body/UI)
+  ─────────────────────────────────────────────────────────────────── */
+  :root {
+    --bg:        #F7F5F0;
+    --bg-alt:    #EEE9DF;
+    --surface:   #FFFFFF;
+    --fg:        #1C1C1A;
+    --fg-muted:  #5C5A54;
+    --accent:    #3A6B50;
+    --accent-lt: #C8DDD0;
+    --accent-dk: #1E3D2C;
+    --gold:      #B8956A;
+    --border:    #D9D4C8;
+    --radius:    12px;
+    --max-w:     720px;
+
+    --font-display: 'Lora', Georgia, serif;
+    --font-body:    'Inter', system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #111410;
+      --bg-alt:    #1A1D18;
+      --surface:   #222620;
+      --fg:        #EDE9DF;
+      --fg-muted:  #9A9890;
+      --accent:    #6AAB84;
+      --accent-lt: #1E3328;
+      --accent-dk: #A0D4B6;
+      --gold:      #C9A87A;
+      --border:    #333630;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #111410;
+    --bg-alt:    #1A1D18;
+    --surface:   #222620;
+    --fg:        #EDE9DF;
+    --fg-muted:  #9A9890;
+    --accent:    #6AAB84;
+    --accent-lt: #1E3328;
+    --accent-dk: #A0D4B6;
+    --gold:      #C9A87A;
+    --border:    #333630;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    padding-left:  max(16px, env(safe-area-inset-left,  0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 0;
+  }
+
+  /* ─── Utilities ──────────────────────────────────────────────── */
+  .inner {
+    max-width: var(--max-w);
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .band {
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    padding-block: 72px 80px;
+  }
+  .band-alt { background: var(--bg-alt); }
+  .band-accent { background: var(--accent); }
+  .band-dark  { background: var(--accent-dk); }
+
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.2; }
+
+  /* ─── Nav ────────────────────────────────────────────────────── */
+  nav {
+    padding-inline: max(24px, env(safe-area-inset-left, 0px));
+    padding-block: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: var(--bg);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-dk);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent-dk); }
+
+  /* ─── Hero ───────────────────────────────────────────────────── */
+  .hero {
+    padding-block: 80px 72px;
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 32px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 20px;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--fg-muted);
+    max-width: 540px;
+    margin-inline: auto;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .badge {
+    background: var(--accent-lt);
+    color: var(--accent-dk);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-art {
+    max-width: 580px;
+    margin-inline: auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--accent-lt);
+    aspect-ratio: 16/7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* SVG landscape illustration */
+  .hero-art svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ─── Section: Vision ────────────────────────────────────────── */
+  .vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+  @media (max-width: 540px) { .vision-grid { grid-template-columns: 1fr; } }
+
+  .vision-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+  }
+  .vision-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--accent-lt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .vision-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .vision-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+  .vision-card p  { font-size: 0.9rem; color: var(--fg-muted); line-height: 1.65; }
+
+  /* ─── Section: Quote ─────────────────────────────────────────── */
+  .quote-band {
+    padding-block: 64px;
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    background: var(--accent-dk);
+    text-align: center;
+  }
+  .quote-band blockquote {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 3vw, 1.65rem);
+    font-style: italic;
+    color: #fff;
+    max-width: 620px;
+    margin-inline: auto;
+    line-height: 1.5;
+  }
+  .quote-band cite {
+    display: block;
+    margin-top: 20px;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ─── Section: Use cases ─────────────────────────────────────── */
+  .use-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  @media (max-width: 600px) { .use-grid { grid-template-columns: 1fr; } }
+
+  .use-card {
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .use-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--accent-lt);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .use-card h3 { font-size: 1rem; margin-bottom: 8px; }
+  .use-card p  { font-size: 0.875rem; color: var(--fg-muted); line-height: 1.65; }
+
+  /* ─── Section heading ────────────────────────────────────────── */
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--fg-muted);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* ─── Form section ───────────────────────────────────────────── */
+  .form-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    margin-top: 48px;
+  }
+  @media (max-width: 540px) { .form-wrap { padding: 28px 20px; } }
+
+  .form-wrap h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+  .form-wrap .form-sub {
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    margin-bottom: 28px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    letter-spacing: 0.02em;
+  }
+
+  input, select, textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--fg);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+    width: 100%;
+    min-width: 0;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 2px;
+  }
+  .radio-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .radio-opt input[type="radio"] {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--accent);
+  }
+  .radio-opt .opt-label { font-size: 0.875rem; line-height: 1.4; }
+  .radio-opt .opt-desc  { font-size: 0.8rem; color: var(--fg-muted); }
+
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    cursor: pointer;
+  }
+  .checkbox-row input { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--accent); }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .submit-btn:hover { background: var(--accent-dk); }
+  .submit-btn:focus { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* Success state */
+  .success-state {
+    text-align: center;
+    padding: 32px 0;
+  }
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent-lt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .success-icon svg { width: 30px; height: 30px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .success-state h3 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 10px; }
+  .success-state p  { font-size: 0.9rem; color: var(--fg-muted); }
+
+  /* ─── Two-path CTA band ────────────────────────────────────────── */
+  .paths-band {
+    padding-block: 72px 80px;
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    background: var(--bg);
+  }
+  .paths-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  @media (max-width: 580px) { .paths-grid { grid-template-columns: 1fr; } }
+
+  .path-card {
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .path-card.survey {
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .path-card.waitlist {
+    background: var(--accent-dk);
+    color: #fff;
+  }
+  .path-pill {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    width: fit-content;
+  }
+  .path-card.survey .path-pill  { background: var(--accent-lt); color: var(--accent-dk); }
+  .path-card.waitlist .path-pill { background: rgba(255,255,255,0.18); color: #fff; }
+  .path-card h3 { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.25; }
+  .path-card.waitlist h3 { color: #fff; }
+  .path-card p  { font-size: 0.875rem; line-height: 1.65; flex-grow: 1; }
+  .path-card.survey p   { color: var(--fg-muted); }
+  .path-card.waitlist p { color: rgba(255,255,255,0.78); }
+  .path-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 11px 22px;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s;
+  }
+  .path-btn:hover { opacity: 0.85; }
+  .path-card.survey  .path-btn { background: var(--accent); color: #fff; }
+  .path-card.waitlist .path-btn { background: #fff; color: var(--accent-dk); }
+
+  /* ─── Form tabs ─────────────────────────────────────────────────── */
+  .form-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 28px;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    color: var(--fg-muted);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn.active { color: var(--accent-dk); border-bottom-color: var(--accent); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* waitlist form accent */
+  .waitlist-note {
+    background: var(--accent-lt);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: var(--accent-dk);
+    margin-bottom: 24px;
+    line-height: 1.55;
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────────── */
+  footer {
+    padding-block: 40px;
+    padding-inline: max(16px, env(safe-area-inset-left, 0px));
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .footer-logo span { color: var(--gold); }
+  footer p {
+    font-size: 0.8rem;
+    color: var(--fg-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+/* Location, flyer and print */
+.nav-links{display:flex;gap:16px;align-items:center}.nav-links>a:not(.nav-cta){color:var(--fg);text-decoration:none;font-size:.85rem;font-weight:600}@media(max-width:500px){.nav-links{gap:9px}.nav-links>a{font-size:.75rem!important}.nav-cta{padding:8px 10px}.nav-logo{font-size:.95rem}}
+.location-card { margin-top:30px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden; }
+.location-address { display:flex;flex-direction:column;padding:20px 24px;gap:2px; }
+.location-address strong { font-family:var(--font-display);font-size:1.25rem; }
+.location-address span { color:var(--fg-muted); }
+.location-card iframe { display:block;width:100%;height:380px;border:0;background:#e3e8e1; }
+.location-actions,.flyer-actions { display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 24px; }
+.location-actions .path-btn,.flyer-actions .path-btn { background:var(--accent);color:#fff; }
+.map-link { color:var(--accent);font-weight:600;text-decoration:underline; }
+.flyer-actions { padding:24px 0; }
+.flyer-actions button { font-size:.9rem; }
+.flyer-actions .secondary { background:var(--accent-lt);color:var(--accent-dk); }
+.flyer-sheet { background:#fff;color:#1c3024;max-width:620px;margin:0 auto;border:1px solid #d6dfd7;padding:48px 46px;box-shadow:0 10px 30px #00000010;text-align:center; }
+.flyer-topline,.flyer-place-label { font-size:.7rem;letter-spacing:.17em;font-weight:700;color:#52765f; }
+.flyer-sheet h2 { font-family:var(--font-display);font-size:clamp(2rem,6vw,3rem);margin:20px 0 8px; }
+.flyer-sheet h2 em { color:#3a6b50; }
+.flyer-tagline { font-family:var(--font-display);font-size:1.25rem; }
+.flyer-divider { width:70px;height:2px;background:#b8956a;margin:26px auto; }
+.flyer-sheet p { font-size:1rem;line-height:1.75; }
+.flyer-features { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:30px 0; }
+.flyer-features span { background:#edf3ed;padding:12px 8px;border-radius:7px;font-size:.84rem; }
+.flyer-place { border:1px solid #cbd9cc;background:#f7faf7;padding:22px;margin:24px 0;display:flex;flex-direction:column;gap:4px; }
+.flyer-place strong { font-family:var(--font-display);font-size:1.4rem; }
+.flyer-mapnote { font-size:.8rem;margin-top:10px;color:#55725d; }
+.flyer-bottom { display:flex;flex-direction:column;gap:6px;margin:26px 0; }
+.flyer-bottom strong { font-size:1.35rem;color:#356548; }
+.flyer-bottom span { font-size:.88rem; }
+.flyer-disclaimer { font-size:.66rem;color:#66776b;line-height:1.5; }
+@media(max-width:540px){.flyer-sheet{padding:32px 20px}.flyer-features{grid-template-columns:1fr}.location-card iframe{height:310px}}
+@media print { @page { size:letter; margin:.35in; } body * { visibility:hidden!important; } #flyer-sheet,#flyer-sheet * {visibility:visible!important;} #flyer-sheet {position:absolute;left:0;top:0;width:100%;max-width:none;box-shadow:none;border:0;padding:35px 38px;} .flyer-features{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+<!-- ═══════════════════════════════════════════════════
+     NAV
+═════════════════════════════════════════════════════ -->
+<nav>
+<a class="nav-logo" href="index.html">East Creek <span>Living</span></a>
+<div class="nav-links"><a href="location.html">Find Us</a><a href="location.html#flyer">Share the Vision</a><a class="nav-cta" href="#interest">Express Interest</a></div>
+</nav>
+<!-- ═══════════════════════════════════════════════════
+     HERO
+═════════════════════════════════════════════════════ -->
+<section class="hero">
+<div class="inner">
+<div class="hero-eyebrow">Dennis Township · Cape May County, NJ</div>
+<h1>A quiet, affordable place<br/>to <em>call home</em></h1>
+<p class="hero-sub">
+      East Creek Living is exploring a model for people who need a safe, supportive place to live — with proposed halal meals, weekly wellness visits, and a welcoming community.
+    </p>
+<div class="hero-badges">
+<span class="badge">Affordable Housing</span>
+<span class="badge">Muslim-Friendly</span>
+<span class="badge">Proposed Halal Meals</span>
+<span class="badge">Proposed Nurse Visits</span>
+<span class="badge">South Jersey</span>
+</div>
+<!-- Illustrated placeholder landscape -->
+<div aria-hidden="true" class="hero-art">
+<svg preserveaspectratio="xMidYMid slice" viewbox="0 0 580 252" xmlns="http://www.w3.org/2000/svg">
+<!-- Sky -->
+<rect fill="var(--accent-lt)" height="252" width="580"></rect>
+<!-- Sun -->
+<circle cx="440" cy="68" fill="var(--gold)" opacity="0.35" r="34"></circle>
+<!-- Rolling hills back -->
+<ellipse cx="290" cy="260" fill="var(--accent)" opacity="0.2" rx="420" ry="110"></ellipse>
+<ellipse cx="80" cy="260" fill="var(--accent)" opacity="0.18" rx="200" ry="90"></ellipse>
+<!-- Ground -->
+<rect fill="var(--accent)" height="84" opacity="0.22" width="580" x="0" y="168"></rect>
+<!-- Barn -->
+<rect fill="var(--accent-dk)" height="52" opacity="0.55" rx="2" width="68" x="62" y="128"></rect>
+<polygon fill="var(--accent-dk)" opacity="0.7" points="62,128 130,128 96,100"></polygon>
+<!-- Silo -->
+<rect fill="var(--accent)" height="40" opacity="0.5" rx="2" width="18" x="134" y="140"></rect>
+<ellipse cx="143" cy="140" fill="var(--accent)" opacity="0.55" rx="9" ry="5"></ellipse>
+<!-- Trees left -->
+<rect fill="var(--accent-dk)" height="30" opacity="0.4" rx="1" width="6" x="22" y="148"></rect>
+<ellipse cx="25" cy="145" fill="var(--accent)" opacity="0.5" rx="14" ry="16"></ellipse>
+<rect fill="var(--accent-dk)" height="22" opacity="0.4" rx="1" width="5" x="40" y="155"></rect>
+<ellipse cx="43" cy="152" fill="var(--accent)" opacity="0.4" rx="11" ry="13"></ellipse>
+<!-- Trees right -->
+<rect fill="var(--accent-dk)" height="34" opacity="0.4" rx="1" width="7" x="460" y="142"></rect>
+<ellipse cx="463" cy="138" fill="var(--accent)" opacity="0.45" rx="17" ry="19"></ellipse>
+<rect fill="var(--accent-dk)" height="25" opacity="0.35" rx="1" width="5" x="490" y="150"></rect>
+<ellipse cx="493" cy="147" fill="var(--accent)" opacity="0.4" rx="12" ry="14"></ellipse>
+<!-- Fence posts -->
+<line opacity="0.4" stroke="var(--accent-dk)" stroke-width="1.5" x1="170" x2="380" y1="175" y2="175"></line>
+<line opacity="0.5" stroke="var(--accent-dk)" stroke-width="2" x1="185" x2="185" y1="168" y2="182"></line>
+<line opacity="0.5" stroke="var(--accent-dk)" stroke-width="2" x1="215" x2="215" y1="168" y2="182"></line>
+<line opacity="0.5" stroke="var(--accent-dk)" stroke-width="2" x1="245" x2="245" y1="168" y2="182"></line>
+<line opacity="0.5" stroke="var(--accent-dk)" stroke-width="2" x1="275" x2="275" y1="168" y2="182"></line>
+<line opacity="0.5" stroke="var(--accent-dk)" stroke-width="2" x1="305" x2="305" y1="168" y2="182"></line>
+<line opacity="0.5" stroke="var(--accent-dk)" stroke-width="2" x1="335" x2="335" y1="168" y2="182"></line>
+<line opacity="0.5" stroke="var(--accent-dk)" stroke-width="2" x1="365" x2="365" y1="168" y2="182"></line>
+<!-- Birds -->
+<path d="M310 55 Q316 50 322 55" fill="none" opacity="0.4" stroke="var(--accent-dk)" stroke-width="1.5"></path>
+<path d="M330 44 Q336 39 342 44" fill="none" opacity="0.35" stroke="var(--accent-dk)" stroke-width="1.5"></path>
+<path d="M295 64 Q300 60 305 64" fill="none" opacity="0.3" stroke="var(--accent-dk)" stroke-width="1.2"></path>
+</svg>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════
+     VISION
+═════════════════════════════════════════════════════ -->
+<section class="band band-alt">
+<div class="inner">
+<div class="section-label">What We're Exploring</div>
+<h2 class="section-title">More than a house.<br/>A place that takes care of you.</h2>
+<p class="section-sub">
+      Many people in New Jersey are living alone — far from family, with no one nearby to check in. East Creek Living is an early effort to change that, with simple, dignified housing and a few basic services built in.
+    </p>
+<div class="vision-grid">
+<div class="vision-card">
+<div class="vision-icon">
+<svg viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+</div>
+<h3>A real place to live</h3>
+<p>Private or shared rooms in a residential home setting — not a clinical facility. Somewhere you can have your own space and still have people around you.</p>
+</div>
+<div class="vision-card">
+<div class="vision-icon">
+<svg viewbox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" x2="6" y1="1" y2="4"></line><line x1="10" x2="10" y1="1" y2="4"></line><line x1="14" x2="14" y1="1" y2="4"></line></svg>
+</div>
+<h3>Halal meals envisioned</h3>
+<p>The proposed model includes meals prepared with halal ingredients. The goal is to avoid worrying about what's in your food or cook for yourself every day.</p>
+</div>
+<div class="vision-card">
+<div class="vision-icon">
+<svg viewbox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+</div>
+<h3>Weekly nurse visits proposed</h3>
+<p>The concept includes weekly wellness check-ins by a nurse, subject to final service arrangements. This is not a nursing home.</p>
+</div>
+<div class="vision-card">
+<div class="vision-icon">
+<svg viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+</div>
+<h3>Community around you</h3>
+<p>Neighbors who share your values. Common spaces to sit, talk, and not be alone. Help with the small things that become hard to manage on your own.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════
+     QUOTE
+═════════════════════════════════════════════════════ -->
+<div class="quote-band">
+<div class="inner">
+<blockquote>
+      "They need a place where they feel safe and belong — and where they find someone who preserves their dignity and accommodates their weakness."
+    </blockquote>
+<cite>— Mohammed Elbenni, Community Leader · North Brunswick, NJ</cite>
+</div>
+</div>
+<!-- ═══════════════════════════════════════════════════
+     USE CASES
+═════════════════════════════════════════════════════ -->
+<section class="band">
+<div class="inner">
+<div class="section-label">Who This Is For</div>
+<h2 class="section-title">This might be right for you if…</h2>
+<p class="section-sub">
+      We're still figuring out the model. Your input helps us understand who actually needs this.
+    </p>
+<div class="use-grid">
+<div class="use-card">
+<div class="use-num" style="color: var(--accent-lt); -webkit-text-stroke: 1.5px var(--accent);">01</div>
+<h3>You're living alone and it's getting harder</h3>
+<p>Managing meals, medications, and daily tasks on your own — and your family isn't nearby to help the way you'd want.</p>
+</div>
+<div class="use-card">
+<div class="use-num" style="color: var(--accent-lt); -webkit-text-stroke: 1.5px var(--accent);">02</div>
+<h3>Your parent needs more than you can give</h3>
+<p>You want your mom or dad in a safe, Muslim-friendly environment — not a nursing home, but somewhere with structure and care built in.</p>
+</div>
+<div class="use-card">
+<div class="use-num" style="color: var(--accent-lt); -webkit-text-stroke: 1.5px var(--accent);">03</div>
+<h3>You can't afford what's out there</h3>
+<p>We're trying to understand what people can actually afford and build from there.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════
+     TWO PATHS
+═════════════════════════════════════════════════════ -->
+<section class="paths-band" id="interest">
+<div class="inner">
+<div class="section-label">Get Involved</div>
+<h2 class="section-title">Two ways to connect</h2>
+<p class="section-sub">Whether you're just curious or actively looking — there's a form for you.</p>
+<div class="paths-grid">
+<div class="path-card survey">
+<span class="path-pill">Community Survey</span>
+<h3>I want to follow this project</h3>
+<p>You're curious, supportive, or know someone who might need this. Help us understand community interest so we can build something that actually works.</p>
+<button class="path-btn" onclick="openTab('survey')">Take the survey →</button>
+</div>
+<div class="path-card waitlist">
+<span class="path-pill">Waitlist</span>
+<h3>I (or someone I care for) actually needs this</h3>
+<p>You're looking for housing now or in the near future. Put your name down — we'll reach out directly as plans develop.</p>
+<button class="path-btn" onclick="openTab('waitlist')">Join the waitlist →</button>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════
+     FORMS (tabbed)
+═════════════════════════════════════════════════════ -->
+<section class="band band-alt" id="forms">
+<div class="inner">
+<div class="form-wrap">
+<div class="form-tabs">
+<button class="tab-btn active" id="tab-survey" onclick="switchTab('survey')">Community Survey</button>
+<button class="tab-btn" id="tab-waitlist" onclick="switchTab('waitlist')">Waitlist</button>
+</div>
+<!-- SURVEY TAB -->
+<div class="tab-panel active" id="panel-survey">
+<h3 style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:6px;">Tell us about your situation</h3>
+<p class="form-sub">Not a reservation — just community research. Takes 2 minutes.</p>
+<form id="survey-form" novalidate="">
+<div class="form-grid">
+<div class="field">
+<label for="f-name">Your name</label>
+<input autocomplete="name" id="f-name" placeholder="Your name" type="text"/>
+</div>
+<div class="field">
+<label for="f-location">City / Town</label>
+<input autocomplete="address-level2" id="f-location" placeholder="e.g. North Brunswick, NJ" type="text"/>
+</div>
+<div class="field">
+<label for="f-email">Email address</label>
+<input autocomplete="email" id="f-email" placeholder="you@email.com" type="email"/>
+</div>
+<div class="field">
+<label for="f-phone">Phone (optional)</label>
+<input autocomplete="tel" id="f-phone" placeholder="(609) 555-0100" type="tel"/>
+</div>
+<div class="field full">
+<label>Who are you filling this out for?</label>
+<div class="radio-group">
+<label class="radio-opt">
+<input name="for_whom" type="radio" value="myself"/>
+<span class="opt-label">Myself<br/><span class="opt-desc">I'm looking for somewhere to live</span></span>
+</label>
+<label class="radio-opt">
+<input name="for_whom" type="radio" value="parent"/>
+<span class="opt-label">A parent or family member<br/><span class="opt-desc">I'm trying to find a good place for someone I care for</span></span>
+</label>
+<label class="radio-opt">
+<input name="for_whom" type="radio" value="community"/>
+<span class="opt-label">Just following the project<br/><span class="opt-desc">I want to stay updated as this develops</span></span>
+</label>
+</div>
+</div>
+<div class="field full">
+<label for="f-budget">What monthly amount would be workable?</label>
+<select id="f-budget">
+<option value="">Select a range…</option>
+<option>Under $1,500/month</option>
+<option>$1,500 – $2,500/month</option>
+<option>$2,500 – $3,500/month</option>
+<option>Above $3,500/month</option>
+<option>Depends on what's included</option>
+<option>Not sure yet</option>
+</select>
+</div>
+<div class="field full">
+<label for="f-distance">How far from family would be acceptable?</label>
+<select id="f-distance">
+<option value="">Select…</option>
+<option>Within 30 minutes</option>
+<option>30–60 minutes</option>
+<option>1–2 hours is fine</option>
+<option>Distance isn't a concern</option>
+</select>
+</div>
+<div class="field full">
+<label for="f-message">Anything else we should know? (optional)</label>
+<textarea id="f-message" placeholder="What matters most to you? Any services or needs we haven't mentioned?"></textarea>
+</div>
+</div>
+<label class="checkbox-row">
+<input checked="" id="f-consent" type="checkbox"/>
+            You can follow up with me as this project develops.
+          </label>
+<button class="submit-btn" type="submit">Submit Survey →</button>
+</form>
+<div class="success-state" hidden="" id="survey-success">
+<div class="success-icon"><svg viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+<h3>JazakAllahu Khayran</h3>
+<p>Your response has been prepared. We'll be in touch as East Creek Living takes shape, insha'Allah.</p>
+</div>
+</div>
+<!-- WAITLIST TAB -->
+<div class="tab-panel" id="panel-waitlist">
+<div class="waitlist-note">This waitlist is for people actively looking for housing — for themselves or a family member. We'll contact you directly when we're closer to opening.</div>
+<h3 style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:6px;">Join the interest list</h3>
+<p class="form-sub">Not a lease — just your name on the list. No commitment required.</p>
+<form id="waitlist-form" novalidate="">
+<div class="form-grid">
+<div class="field">
+<label for="w-name">Your full name</label>
+<input autocomplete="name" id="w-name" placeholder="Your name" type="text"/>
+</div>
+<div class="field">
+<label for="w-location">City / Town you're coming from</label>
+<input autocomplete="address-level2" id="w-location" placeholder="e.g. Edison, NJ" type="text"/>
+</div>
+<div class="field">
+<label for="w-email">Email address</label>
+<input autocomplete="email" id="w-email" placeholder="you@email.com" type="email"/>
+</div>
+<div class="field">
+<label for="w-phone">Phone number</label>
+<input autocomplete="tel" id="w-phone" placeholder="(609) 555-0100" type="tel"/>
+</div>
+<div class="field full">
+<label>Who would be living here?</label>
+<div class="radio-group">
+<label class="radio-opt">
+<input name="w_resident" type="radio" value="myself"/>
+<span class="opt-label">Me<br/><span class="opt-desc">I'm the one looking for housing</span></span>
+</label>
+<label class="radio-opt">
+<input name="w_resident" type="radio" value="parent"/>
+<span class="opt-label">My parent or family member<br/><span class="opt-desc">I'm arranging this on their behalf</span></span>
+</label>
+</div>
+</div>
+<div class="field full">
+<label for="w-timeline">When are you looking?</label>
+<select id="w-timeline">
+<option value="">Select…</option>
+<option>As soon as possible</option>
+<option>Within 3–6 months</option>
+<option>Within the next year</option>
+<option>Not sure yet — just getting ahead of it</option>
+</select>
+</div>
+<div class="field full">
+<label for="w-needs">Any specific needs we should know about?</label>
+<textarea id="w-needs" placeholder="Mobility concerns, language preference, care level, anything relevant…"></textarea>
+</div>
+</div>
+<label class="checkbox-row">
+<input checked="" id="w-consent" type="checkbox"/>
+            You can contact me directly when plans are finalized.
+          </label>
+<button class="submit-btn" style="background:var(--accent-dk);" type="submit">Join the Waitlist →</button>
+</form>
+<div class="success-state" hidden="" id="waitlist-success">
+<div class="success-icon"><svg viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+<h3>You're on the list</h3>
+<p>Your information has been prepared. When we're ready to take residents, you'll be among the first we contact, insha'Allah.</p>
+</div>
+</div>
+</div>
+<p style="font-size:0.78rem; color:var(--fg-muted); margin-top:16px; text-align:center;">
+      Forms are currently in preview mode and do not send information. Please connect a secure form service before publishing. This is not a binding agreement.
+    </p>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════
+     FOOTER
+═════════════════════════════════════════════════════ -->
+<footer>
+<div class="footer-logo">East Creek <span>Living</span></div>
+<p>Dennis Township · Cape May County, NJ</p>
+<p style="font-size:0.78rem;">Early-stage community exploration · eastcreekliving.com</p>
+</footer>
+<script>
+function printFlyer(){window.print();}
+
+  // ── Tab switching ──────────────────────────────────────────
+  function switchTab(name) {
+    ['survey','waitlist'].forEach(t => {
+      document.getElementById('tab-' + t).classList.toggle('active', t === name);
+      document.getElementById('panel-' + t).classList.toggle('active', t === name);
+    });
+    document.getElementById('forms').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function openTab(name) {
+    switchTab(name);
+    document.getElementById('forms').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // ── Survey form ────────────────────────────────────────────
+  const surveyFields = ['f-name','f-location','f-email','f-phone','f-budget','f-distance','f-message'];
+  surveyFields.forEach(id => {
+    try {
+      const el = document.getElementById(id);
+      const v = localStorage.getItem('ecm_s_' + id);
+      if (v && el) el.value = v;
+      if (el) el.addEventListener('input', function() {
+        try { localStorage.setItem('ecm_s_' + id, this.value); } catch(e) {}
+      });
+    } catch(e) {}
+  });
+
+  document.getElementById('survey-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = {
+      type: 'survey',
+      name:     document.getElementById('f-name').value,
+      location: document.getElementById('f-location').value,
+      email:    document.getElementById('f-email').value,
+      phone:    document.getElementById('f-phone').value,
+      for_whom: (document.querySelector('[name="for_whom"]:checked') || {}).value || '',
+      budget:   document.getElementById('f-budget').value,
+      distance: document.getElementById('f-distance').value,
+      message:  document.getElementById('f-message').value,
+      consent:  document.getElementById('f-consent').checked,
+      submitted: new Date().toISOString()
+    };
+    console.log('ECM Survey (not transmitted):', JSON.stringify(data, null, 2));
+    surveyFields.forEach(id => { try { localStorage.removeItem('ecm_s_' + id); } catch(e) {} });
+    alert('This form is a preview and is not yet connected to a submission service. Your response has NOT been sent.');
+  });
+
+  // ── Waitlist form ──────────────────────────────────────────
+  const wlFields = ['w-name','w-location','w-email','w-phone','w-timeline','w-needs'];
+  wlFields.forEach(id => {
+    try {
+      const el = document.getElementById(id);
+      const v = localStorage.getItem('ecm_w_' + id);
+      if (v && el) el.value = v;
+      if (el) el.addEventListener('input', function() {
+        try { localStorage.setItem('ecm_w_' + id, this.value); } catch(e) {}
+      });
+    } catch(e) {}
+  });
+
+  document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = {
+      type: 'waitlist',
+      name:     document.getElementById('w-name').value,
+      location: document.getElementById('w-location').value,
+      email:    document.getElementById('w-email').value,
+      phone:    document.getElementById('w-phone').value,
+      resident: (document.querySelector('[name="w_resident"]:checked') || {}).value || '',
+      timeline: document.getElementById('w-timeline').value,
+      needs:    document.getElementById('w-needs').value,
+      consent:  document.getElementById('w-consent').checked,
+      submitted: new Date().toISOString()
+    };
+    console.log('ECM Waitlist (not transmitted):', JSON.stringify(data, null, 2));
+    wlFields.forEach(id => { try { localStorage.removeItem('ecm_w_' + id); } catch(e) {} });
+    alert('This form is a preview and is not yet connected to a submission service. Your information has NOT been sent.');
+  });
+</script>
+</body>
+</html>
