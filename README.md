@@ -1,2 +1,2 @@
-# EastCreek
+# EastCreekLiving
 East Creek Living
