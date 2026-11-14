@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="#F7F5F0" name="theme-color"/><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/><title>Find Us &amp; Share the Vision | East Creek Living</title><style>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="#F7F5F0" name="theme-color"/><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/><title>Find Us | East Creek Living</title><style>
   /* ─── Design tokens ──────────────────────────────────────────────
      Layout: stacked full-width sections, centered content column
      Color: warm sage earth palette — calm, natural, trustworthy
@@ -578,38 +578,18 @@
     * { transition: none !important; animation: none !important; }
   }
 
-/* Location, flyer and print */
+/* Location */
 .nav-links{display:flex;gap:16px;align-items:center}.nav-links>a:not(.nav-cta){color:var(--fg);text-decoration:none;font-size:.85rem;font-weight:600}@media(max-width:500px){.nav-links{gap:9px}.nav-links>a{font-size:.75rem!important}.nav-cta{padding:8px 10px}.nav-logo{font-size:.95rem}}
 .location-card { margin-top:30px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden; }
 .location-address { display:flex;flex-direction:column;padding:20px 24px;gap:2px; }
 .location-address strong { font-family:var(--font-display);font-size:1.25rem; }
 .location-address span { color:var(--fg-muted); }
 .location-card iframe { display:block;width:100%;height:380px;border:0;background:#e3e8e1; }
-.location-actions,.flyer-actions { display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 24px; }
-.location-actions .path-btn,.flyer-actions .path-btn { background:var(--accent);color:#fff; }
+.location-actions { display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 24px; }
+.location-actions .path-btn { background:var(--accent);color:#fff; }
 .map-link { color:var(--accent);font-weight:600;text-decoration:underline; }
-.flyer-actions { padding:24px 0; }
-.flyer-actions button { font-size:.9rem; }
-.flyer-actions .secondary { background:var(--accent-lt);color:var(--accent-dk); }
-.flyer-sheet { background:#fff;color:#1c3024;max-width:620px;margin:0 auto;border:1px solid #d6dfd7;padding:48px 46px;box-shadow:0 10px 30px #00000010;text-align:center; }
-.flyer-topline,.flyer-place-label { font-size:.7rem;letter-spacing:.17em;font-weight:700;color:#52765f; }
-.flyer-sheet h2 { font-family:var(--font-display);font-size:clamp(2rem,6vw,3rem);margin:20px 0 8px; }
-.flyer-sheet h2 em { color:#3a6b50; }
-.flyer-tagline { font-family:var(--font-display);font-size:1.25rem; }
-.flyer-divider { width:70px;height:2px;background:#b8956a;margin:26px auto; }
-.flyer-sheet p { font-size:1rem;line-height:1.75; }
-.flyer-features { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:30px 0; }
-.flyer-features span { background:#edf3ed;padding:12px 8px;border-radius:7px;font-size:.84rem; }
-.flyer-place { border:1px solid #cbd9cc;background:#f7faf7;padding:22px;margin:24px 0;display:flex;flex-direction:column;gap:4px; }
-.flyer-place strong { font-family:var(--font-display);font-size:1.4rem; }
-.flyer-mapnote { font-size:.8rem;margin-top:10px;color:#55725d; }
-.flyer-bottom { display:flex;flex-direction:column;gap:6px;margin:26px 0; }
-.flyer-bottom strong { font-size:1.35rem;color:#356548; }
-.flyer-bottom span { font-size:.88rem; }
-.flyer-disclaimer { font-size:.66rem;color:#66776b;line-height:1.5; }
-@media(max-width:540px){.flyer-sheet{padding:32px 20px}.flyer-features{grid-template-columns:1fr}.location-card iframe{height:310px}}
-@media print { @page { size:letter; margin:.35in; } body * { visibility:hidden!important; } #flyer-sheet,#flyer-sheet * {visibility:visible!important;} #flyer-sheet {position:absolute;left:0;top:0;width:100%;max-width:none;box-shadow:none;border:0;padding:35px 38px;} .flyer-features{grid-template-columns:1fr 1fr} }
-</style></head><body><nav><a class="nav-logo" href="index.html">East Creek <span>Living</span></a><div class="nav-links"><a href="index.html">Home</a><a href="location.html">Find Us</a><a href="location.html#flyer">Share the Vision</a><a class="nav-cta" href="index.html#interest">Express Interest</a></div></nav><!-- LOCATION: interactive embedded map -->
+@media(max-width:540px){.location-card iframe{height:310px}}
+</style></head><body><nav><a class="nav-logo" href="index.html">East Creek <span>Living</span></a><div class="nav-links"><a href="index.html">Home</a><a href="location.html">Find Us</a><a class="nav-cta" href="index.html#interest">Express Interest</a></div></nav><!-- LOCATION: interactive embedded map -->
 <section class="band band-alt" id="location">
 <div class="inner">
 <div class="section-label">Find Us</div>
@@ -621,23 +601,4 @@
 <div class="location-actions"><a class="path-btn" href="https://www.google.com/maps/search/?api=1&amp;query=2056%20Route%2047%2C%20Woodbine%2C%20NJ%2008270" rel="noopener noreferrer" target="_blank">Open interactive map ↗</a><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=2056%20Route%2047%2C%20Woodbine%2C%20NJ%2008270" rel="noopener noreferrer" target="_blank">Get directions ↗</a></div>
 </div>
 </div>
-</section><section class="band" id="flyer">
-<div class="inner">
-<div class="section-label">Share the Vision</div>
-<h2 class="section-title">Help us spread the word</h2>
-<p class="section-sub">Print or share this one-page introduction with friends, family, and community members.</p>
-<div class="flyer-actions"><button class="path-btn" onclick="printFlyer()" type="button">Print / Save Flyer as PDF ↗</button><button class="path-btn secondary" onclick="navigator.clipboard?.writeText('https://eastcreekliving.com')" type="button">Copy Website Link</button></div>
-<article class="flyer-sheet" id="flyer-sheet">
-<div class="flyer-topline">CAPE MAY COUNTY · NEW JERSEY</div>
-<h2>East Creek <em>Living</em></h2>
-<div class="flyer-tagline">A quiet, affordable place to call home.</div>
-<div class="flyer-divider"></div>
-<p>We're exploring a welcoming, Muslim-friendly residential community built around dignity, connection, and peace of mind.</p>
-<div class="flyer-features"><span>Residential living</span><span>Halal meals envisioned</span><span>Weekly wellness visits proposed</span><span>Community &amp; belonging</span></div>
-<div class="flyer-place"><div class="flyer-place-label">EXPLORE THE LOCATION</div><strong>2056 Route 47</strong><span>Woodbine, NJ 08270</span><div class="flyer-mapnote">View the interactive map and directions at our website.</div></div>
-<div class="flyer-bottom"><strong>eastcreekliving.com</strong><span>Take our community survey or join the interest list.</span></div>
-<div class="flyer-disclaimer">An early-stage concept. Features, services, and availability are subject to change. This is not an offer of housing or medical care.</div>
-</article>
-</div>
-</section>
-<footer><div class="footer-logo">East Creek <span>Living</span></div><p>2056 Route 47 · Woodbine, NJ 08270</p><p><a href="https://eastcreekliving.com">eastcreekliving.com</a></p></footer><script>function printFlyer(){window.print()}</script></body></html>
+</section><footer><div class="footer-logo">East Creek <span>Living</span></div><p>2056 Route 47 · Woodbine, NJ 08270</p><p><a href="https://eastcreekliving.com">eastcreekliving.com</a></p></footer></body></html>

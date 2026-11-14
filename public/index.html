@@ -588,37 +588,21 @@
     * { transition: none !important; animation: none !important; }
   }
 
-/* Location, flyer and print */
+/* Location */
 .nav-links{display:flex;gap:16px;align-items:center}.nav-links>a:not(.nav-cta){color:var(--fg);text-decoration:none;font-size:.85rem;font-weight:600}@media(max-width:500px){.nav-links{gap:9px}.nav-links>a{font-size:.75rem!important}.nav-cta{padding:8px 10px}.nav-logo{font-size:.95rem}}
 .location-card { margin-top:30px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden; }
 .location-address { display:flex;flex-direction:column;padding:20px 24px;gap:2px; }
 .location-address strong { font-family:var(--font-display);font-size:1.25rem; }
 .location-address span { color:var(--fg-muted); }
 .location-card iframe { display:block;width:100%;height:380px;border:0;background:#e3e8e1; }
-.location-actions,.flyer-actions { display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 24px; }
-.location-actions .path-btn,.flyer-actions .path-btn { background:var(--accent);color:#fff; }
+.location-actions { display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 24px; }
+.location-actions .path-btn { background:var(--accent);color:#fff; }
 .map-link { color:var(--accent);font-weight:600;text-decoration:underline; }
-.flyer-actions { padding:24px 0; }
-.flyer-actions button { font-size:.9rem; }
-.flyer-actions .secondary { background:var(--accent-lt);color:var(--accent-dk); }
-.flyer-sheet { background:#fff;color:#1c3024;max-width:620px;margin:0 auto;border:1px solid #d6dfd7;padding:48px 46px;box-shadow:0 10px 30px #00000010;text-align:center; }
-.flyer-topline,.flyer-place-label { font-size:.7rem;letter-spacing:.17em;font-weight:700;color:#52765f; }
-.flyer-sheet h2 { font-family:var(--font-display);font-size:clamp(2rem,6vw,3rem);margin:20px 0 8px; }
-.flyer-sheet h2 em { color:#3a6b50; }
-.flyer-tagline { font-family:var(--font-display);font-size:1.25rem; }
-.flyer-divider { width:70px;height:2px;background:#b8956a;margin:26px auto; }
-.flyer-sheet p { font-size:1rem;line-height:1.75; }
-.flyer-features { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:30px 0; }
-.flyer-features span { background:#edf3ed;padding:12px 8px;border-radius:7px;font-size:.84rem; }
-.flyer-place { border:1px solid #cbd9cc;background:#f7faf7;padding:22px;margin:24px 0;display:flex;flex-direction:column;gap:4px; }
-.flyer-place strong { font-family:var(--font-display);font-size:1.4rem; }
-.flyer-mapnote { font-size:.8rem;margin-top:10px;color:#55725d; }
-.flyer-bottom { display:flex;flex-direction:column;gap:6px;margin:26px 0; }
-.flyer-bottom strong { font-size:1.35rem;color:#356548; }
-.flyer-bottom span { font-size:.88rem; }
-.flyer-disclaimer { font-size:.66rem;color:#66776b;line-height:1.5; }
-@media(max-width:540px){.flyer-sheet{padding:32px 20px}.flyer-features{grid-template-columns:1fr}.location-card iframe{height:310px}}
-@media print { @page { size:letter; margin:.35in; } body * { visibility:hidden!important; } #flyer-sheet,#flyer-sheet * {visibility:visible!important;} #flyer-sheet {position:absolute;left:0;top:0;width:100%;max-width:none;box-shadow:none;border:0;padding:35px 38px;} .flyer-features{grid-template-columns:1fr 1fr} }
+@media(max-width:540px){.location-card iframe{height:310px}}
+.hp-field{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.form-error{color:#a3322a;font-size:.88rem;margin-top:10px}
+.field-note{font-size:.78rem;color:var(--fg-muted);margin-top:6px}
+.submit-btn[disabled]{opacity:.65;cursor:wait}
 </style>
 </head>
 <body>
@@ -627,7 +611,7 @@
 ═════════════════════════════════════════════════════ -->
 <nav>
 <a class="nav-logo" href="index.html">East Creek <span>Living</span></a>
-<div class="nav-links"><a href="location.html">Find Us</a><a href="location.html#flyer">Share the Vision</a><a class="nav-cta" href="#interest">Express Interest</a></div>
+<div class="nav-links"><a href="location.html">Find Us</a><a class="nav-cta" href="#interest">Express Interest</a></div>
 </nav>
 <!-- ═══════════════════════════════════════════════════
      HERO
@@ -812,6 +796,7 @@
 <h3 style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:6px;">Tell us about your situation</h3>
 <p class="form-sub">Not a reservation — just community research. Takes 2 minutes.</p>
 <form id="survey-form" novalidate="">
+<div class="hp-field" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"/></label></div>
 <div class="form-grid">
 <div class="field">
 <label for="f-name">Your name</label>
@@ -878,11 +863,12 @@
             You can follow up with me as this project develops.
           </label>
 <button class="submit-btn" type="submit">Submit Survey →</button>
+<p class="form-error" role="alert" hidden=""></p>
 </form>
 <div class="success-state" hidden="" id="survey-success">
 <div class="success-icon"><svg viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
 <h3>JazakAllahu Khayran</h3>
-<p>Your response has been prepared. We'll be in touch as East Creek Living takes shape, insha'Allah.</p>
+<p>Your response has been received. We'll be in touch as East Creek Living takes shape, insha'Allah.</p>
 </div>
 </div>
 <!-- WAITLIST TAB -->
@@ -891,6 +877,7 @@
 <h3 style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:6px;">Join the interest list</h3>
 <p class="form-sub">Not a lease — just your name on the list. No commitment required.</p>
 <form id="waitlist-form" novalidate="">
+<div class="hp-field" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"/></label></div>
 <div class="form-grid">
 <div class="field">
 <label for="w-name">Your full name</label>
@@ -932,8 +919,9 @@
 </select>
 </div>
 <div class="field full">
-<label for="w-needs">Any specific needs we should know about?</label>
-<textarea id="w-needs" placeholder="Mobility concerns, language preference, care level, anything relevant…"></textarea>
+<label for="w-needs">Anything else we should know?</label>
+<textarea id="w-needs" placeholder="Language preference, questions you have, timing…"></textarea>
+<p class="field-note">Please don't include medical details.</p>
 </div>
 </div>
 <label class="checkbox-row">
@@ -941,16 +929,17 @@
             You can contact me directly when plans are finalized.
           </label>
 <button class="submit-btn" style="background:var(--accent-dk);" type="submit">Join the Waitlist →</button>
+<p class="form-error" role="alert" hidden=""></p>
 </form>
 <div class="success-state" hidden="" id="waitlist-success">
 <div class="success-icon"><svg viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
 <h3>You're on the list</h3>
-<p>Your information has been prepared. When we're ready to take residents, you'll be among the first we contact, insha'Allah.</p>
+<p>Your information has been received. When we're ready to take residents, you'll be among the first we contact, insha'Allah.</p>
 </div>
 </div>
 </div>
 <p style="font-size:0.78rem; color:var(--fg-muted); margin-top:16px; text-align:center;">
-      Forms are currently in preview mode and do not send information. Please connect a secure form service before publishing. This is not a binding agreement.
+      Your information is kept private and only used to contact you about East Creek Living. This is not a binding agreement.
     </p>
 </div>
 </section>
@@ -963,7 +952,6 @@
 <p style="font-size:0.78rem;">Early-stage community exploration · eastcreekliving.com</p>
 </footer>
 <script>
-function printFlyer(){window.print();}
 
   // ── Tab switching ──────────────────────────────────────────
   function switchTab(name) {
@@ -978,70 +966,85 @@ function printFlyer(){window.print();}
     document.getElementById('forms').scrollIntoView({behavior:'smooth', block:'start'});
   }
 
-  // ── Survey form ────────────────────────────────────────────
-  const surveyFields = ['f-name','f-location','f-email','f-phone','f-budget','f-distance','f-message'];
-  surveyFields.forEach(id => {
-    try {
-      const el = document.getElementById(id);
-      const v = localStorage.getItem('ecm_s_' + id);
-      if (v && el) el.value = v;
-      if (el) el.addEventListener('input', function() {
-        try { localStorage.setItem('ecm_s_' + id, this.value); } catch(e) {}
-      });
-    } catch(e) {}
-  });
+  // ── Form submission ────────────────────────────────────────
+  const PAGE_LOADED_AT = Date.now();
 
-  document.getElementById('survey-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const data = {
-      type: 'survey',
-      name:     document.getElementById('f-name').value,
-      location: document.getElementById('f-location').value,
-      email:    document.getElementById('f-email').value,
-      phone:    document.getElementById('f-phone').value,
-      for_whom: (document.querySelector('[name="for_whom"]:checked') || {}).value || '',
-      budget:   document.getElementById('f-budget').value,
-      distance: document.getElementById('f-distance').value,
-      message:  document.getElementById('f-message').value,
-      consent:  document.getElementById('f-consent').checked,
-      submitted: new Date().toISOString()
-    };
-    console.log('ECM Survey (not transmitted):', JSON.stringify(data, null, 2));
-    surveyFields.forEach(id => { try { localStorage.removeItem('ecm_s_' + id); } catch(e) {} });
-    alert('This form is a preview and is not yet connected to a submission service. Your response has NOT been sent.');
-  });
+  function radioVal(name) {
+    const el = document.querySelector('[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
 
-  // ── Waitlist form ──────────────────────────────────────────
-  const wlFields = ['w-name','w-location','w-email','w-phone','w-timeline','w-needs'];
-  wlFields.forEach(id => {
-    try {
-      const el = document.getElementById(id);
-      const v = localStorage.getItem('ecm_w_' + id);
-      if (v && el) el.value = v;
-      if (el) el.addEventListener('input', function() {
-        try { localStorage.setItem('ecm_w_' + id, this.value); } catch(e) {}
-      });
-    } catch(e) {}
-  });
+  function wireForm(formId, successId, endpoint, collect) {
+    const form = document.getElementById(formId);
+    const btn = form.querySelector('.submit-btn');
+    const errEl = form.querySelector('.form-error');
+    const btnText = btn.textContent;
+    let sending = false;
 
-  document.getElementById('waitlist-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const data = {
-      type: 'waitlist',
-      name:     document.getElementById('w-name').value,
-      location: document.getElementById('w-location').value,
-      email:    document.getElementById('w-email').value,
-      phone:    document.getElementById('w-phone').value,
-      resident: (document.querySelector('[name="w_resident"]:checked') || {}).value || '',
-      timeline: document.getElementById('w-timeline').value,
-      needs:    document.getElementById('w-needs').value,
-      consent:  document.getElementById('w-consent').checked,
-      submitted: new Date().toISOString()
-    };
-    console.log('ECM Waitlist (not transmitted):', JSON.stringify(data, null, 2));
-    wlFields.forEach(id => { try { localStorage.removeItem('ecm_w_' + id); } catch(e) {} });
-    alert('This form is a preview and is not yet connected to a submission service. Your information has NOT been sent.');
-  });
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      if (sending) return;
+      errEl.hidden = true;
+
+      const data = collect();
+      data.website = form.querySelector('[name="website"]').value;
+      data.elapsed_ms = Date.now() - PAGE_LOADED_AT;
+
+      if (!data.name.trim() || (!data.email.trim() && !data.phone.trim())) {
+        errEl.textContent = 'Please add your name and an email or phone number.';
+        errEl.hidden = false;
+        return;
+      }
+
+      sending = true;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || !out.ok) throw new Error(out.error || 'failed');
+        form.reset();
+        form.hidden = true;
+        document.getElementById(successId).hidden = false;
+      } catch (err) {
+        errEl.textContent = (err && err.message && err.message !== 'failed' && err.message !== 'Failed to fetch')
+          ? err.message
+          : 'Something went wrong — please try again.';
+        errEl.hidden = false;
+        btn.disabled = false;
+        btn.textContent = btnText;
+      } finally {
+        sending = false;
+      }
+    });
+  }
+
+  wireForm('survey-form', 'survey-success', '/api/survey', () => ({
+    name:     document.getElementById('f-name').value,
+    location: document.getElementById('f-location').value,
+    email:    document.getElementById('f-email').value,
+    phone:    document.getElementById('f-phone').value,
+    for_whom: radioVal('for_whom'),
+    budget:   document.getElementById('f-budget').value,
+    distance: document.getElementById('f-distance').value,
+    message:  document.getElementById('f-message').value,
+    consent:  document.getElementById('f-consent').checked
+  }));
+
+  wireForm('waitlist-form', 'waitlist-success', '/api/housing-interest', () => ({
+    name:     document.getElementById('w-name').value,
+    location: document.getElementById('w-location').value,
+    email:    document.getElementById('w-email').value,
+    phone:    document.getElementById('w-phone').value,
+    resident: radioVal('w_resident'),
+    timeline: document.getElementById('w-timeline').value,
+    needs:    document.getElementById('w-needs').value,
+    consent:  document.getElementById('w-consent').checked
+  }));
 </script>
 </body>
 </html>
