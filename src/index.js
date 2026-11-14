@@ -34,6 +34,7 @@ const OPTIONS = {
 const FORMS = {
   "/api/survey": {
     table: "tblMk7aWd98sP8liJ", // Community Survey
+    notes: "Comments", // fallback home for answers Airtable rejects
     text: { name: "Name", location: "City / Town", email: "Email", phone: "Phone", message: "Comments" },
     select: {
       for_whom: ["Responding For", OPTIONS.respondingFor],
@@ -44,6 +45,7 @@ const FORMS = {
   },
   "/api/housing-interest": {
     table: "tblOZ3OBRutGhXmeP", // Housing Interest
+    notes: "Notes (nonclinical)", // fallback home for answers Airtable rejects
     text: { name: "Name", location: "City / Town", email: "Email", phone: "Phone", needs: "Notes (nonclinical)" },
     select: {
       resident: ["Prospective Resident", OPTIONS.prospectiveResident],
@@ -121,20 +123,49 @@ async function handleForm(request, env, form) {
     return json({ ok: false, error: "Something went wrong — please try again later." }, 500);
   }
 
-  const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${form.table}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${env.AIRTABLE_PERSONAL_ACCESS_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ records: [{ fields }] }),
-  });
+  // Try the full record first. If Airtable rejects it (usually a dropdown option or field
+  // that doesn't match the base exactly), retry with progressively simpler records so the
+  // person's details are never lost. Rejected answers are copied into the notes field.
+  const selectCols = [...Object.values(form.select).map(([col]) => col), SOURCE_FIELD];
+  const attempts = [fields];
 
-  if (!res.ok) {
-    console.error("Airtable error", res.status, await res.text());
-    return json({ ok: false, error: "Something went wrong — please try again." }, 502);
+  const noSelects = { ...fields };
+  const moved = [];
+  for (const col of selectCols) {
+    if (col in noSelects) {
+      if (col !== SOURCE_FIELD) moved.push(`${col}: ${noSelects[col]}`);
+      delete noSelects[col];
+    }
   }
-  return json({ ok: true });
+  if (moved.length) {
+    const prefix = noSelects[form.notes] ? noSelects[form.notes] + "\n\n" : "";
+    noSelects[form.notes] = (prefix + "[Form answers] " + moved.join(" | ")).slice(0, 5000);
+  }
+  attempts.push(noSelects);
+
+  const bare = { ...noSelects };
+  delete bare[TIMESTAMP_FIELD];
+  attempts.push(bare);
+
+  for (let i = 0; i < attempts.length; i++) {
+    const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${form.table}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.AIRTABLE_PERSONAL_ACCESS_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ records: [{ fields: attempts[i] }] }),
+    });
+    if (res.ok) {
+      if (i > 0) console.error(`Saved using fallback #${i} — check field names/options in CONFIG`);
+      return json({ ok: true });
+    }
+    const detail = await res.text();
+    console.error(`Airtable error (attempt ${i + 1})`, res.status, detail);
+    // Only data problems (422) are worth retrying; auth/permission errors won't improve.
+    if (res.status !== 422) break;
+  }
+  return json({ ok: false, error: "Something went wrong — please try again." }, 502);
 }
 
 export default {
