@@ -589,6 +589,13 @@
 .location-actions .path-btn { background:var(--accent);color:#fff; }
 .map-link { color:var(--accent);font-weight:600;text-decoration:underline; }
 @media(max-width:540px){.location-card iframe{height:310px}}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.photo-grid figure{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.photo-grid img{display:block;width:100%;height:220px;object-fit:cover}
+.photo-grid .photo-main{grid-column:1/-1}
+.photo-grid .photo-main img{height:auto;max-height:560px}
+.photo-grid figcaption{padding:10px 14px;font-size:.85rem;color:var(--fg-muted)}
+@media(max-width:700px){.photo-grid{grid-template-columns:1fr}.photo-grid img{height:240px}}
 </style></head><body><nav><a class="nav-logo" href="index.html">East Creek <span>Living</span></a><div class="nav-links"><a href="index.html">Home</a><a href="location.html">Find Us</a><a class="nav-cta" href="index.html#interest">Express Interest</a></div></nav><!-- LOCATION: interactive embedded map -->
 <section class="band band-alt" id="location">
 <div class="inner">
@@ -599,6 +606,18 @@
 <div class="location-address"><strong>2056 Route 47</strong><span>Woodbine, NJ 08270</span></div>
 <iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=2056%20Route%2047%2C%20Woodbine%2C%20NJ%2008270&amp;output=embed" title="Interactive map of 2056 Route 47, Woodbine, NJ"></iframe>
 <div class="location-actions"><a class="path-btn" href="https://www.google.com/maps/search/?api=1&amp;query=2056%20Route%2047%2C%20Woodbine%2C%20NJ%2008270" rel="noopener noreferrer" target="_blank">Open interactive map ↗</a><a class="map-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=2056%20Route%2047%2C%20Woodbine%2C%20NJ%2008270" rel="noopener noreferrer" target="_blank">Get directions ↗</a></div>
+</div>
+</div>
+</section><section class="band" id="photos">
+<div class="inner">
+<div class="section-label">The Property</div>
+<h2 class="section-title">A look around</h2>
+<p class="section-sub">The house and grounds at 2056 Route 47, surrounded by open land and marsh.</p>
+<div class="photo-grid">
+<figure class="photo-main"><img src="images/house-front.jpg" alt="Front of the white two-story house with green trim on Route 47" width="1057" height="827" loading="lazy"/><figcaption>The main house</figcaption></figure>
+<figure><img src="images/marsh-view.jpg" alt="View of the marsh and creek through a window of the house" width="512" height="408" loading="lazy"/><figcaption>Marsh views from inside</figcaption></figure>
+<figure><img src="images/grounds.jpg" alt="Open grassy grounds with two small outbuildings and a tree line" width="460" height="243" loading="lazy"/><figcaption>Open grounds</figcaption></figure>
+<figure><img src="images/back-stairs.jpg" alt="Wooden stairs leading down to the wooded edge of the property" width="356" height="267" loading="lazy"/><figcaption>Steps down to the grounds</figcaption></figure>
 </div>
 </div>
 </section><footer><div class="footer-logo">East Creek <span>Living</span></div><p>2056 Route 47 · Woodbine, NJ 08270</p><p><a href="https://eastcreekliving.com">eastcreekliving.com</a></p></footer></body></html>
